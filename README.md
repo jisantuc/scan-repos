@@ -26,6 +26,8 @@ Environment Variables:
         Token to use to authenticate calls to GitHub
 ```
 
+Note that because this isn't packaged as an executable or jar or anything, you'll invoke it as `sbt 'run [args]'` isntead of `scan-repos [args]`. For example, if your repo list was in a file called `repos`, your command would be `sbt 'run repos'`.
+
 Your repos file should be a line-separated list of repositories like:
 
 ```
