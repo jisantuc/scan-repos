@@ -13,6 +13,8 @@ import github4s.domain.PullRequest
 import org.http4s.blaze.client.BlazeClientBuilder
 
 import java.nio.file.Path
+import java.time.Duration
+import java.time.Instant
 
 object Main
     extends CommandIOApp(
@@ -43,6 +45,16 @@ object Main
       botName: Option[String]
   )
 
+  def lag(pr: PullRequest): String = {
+    val now = Instant.now
+    val difference =
+      now.toEpochMilli - Instant.parse(pr.created_at).toEpochMilli
+    val differenceDuration = Duration.ofMillis(difference)
+    val daysDifference = differenceDuration.toDays
+    s"${daysDifference} day${if (daysDifference != 1) { "s" }
+    else { "" }} ago"
+  }
+
   def main: Opts[IO[ExitCode]] =
     (inFilePathOpt, botNameOpt, tokenOpt) mapN { case (path, bot, token) =>
       (for {
@@ -67,7 +79,7 @@ object Main
             cats.effect.std
               .Console[IO]
               .println(
-                s"${org} / ${repo} / ${pr.title}: ${pr.html_url}"
+                s"${org} / ${repo} / ${pr.title}: ${pr.html_url} (${lag(pr)})"
               )
           )
       } yield ()).compile.drain.as(ExitCode.Success)
