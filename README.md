@@ -4,7 +4,7 @@ An application for monitoring repos kept up-to-date by scala-steward for open
 PRs.
 
 A common workflow with `scala-steward` is to have some kind of automatic merge
-rule, either with [mergify] (like
+rule, either with [mergify](https://mergify.com/) (like
 [here](https://notthatbreezy.io/2020/02/refined-examples/)) or with GitHub
 actions, like in [47 Degrees open source
 repos](https://github.com/47degrees/github4s/blob/v0.31.0/.github/workflows/ci.yml#L49-L54).
